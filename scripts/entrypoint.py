@@ -31,8 +31,7 @@ def write_database_from_csv(date):
         type=row[4],
         price=row[5]
       )
-      if card.to_sql_object() is not None and card.name != 'ウールー':
-        cards.append(card.to_sql_object())
+      cards.append(card)
 
   cards = get_unique_list(cards)
   card_repository = CardRepository()

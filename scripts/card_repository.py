@@ -16,17 +16,23 @@ class CardRepository:
     fetch_date = date
     if fetch_date is None:
       fetch_date = datetime.now().strftime('%Y-%m-%d')
-    sql = '''INSERT INTO cards (
-      name, 
-      status, 
-      rarity, 
-      version, 
-      type, 
-      price, 
-      fetch_date) VALUES (%s, %s, %s, %s, %s, %s, %s)
+    sql = '''INSERT INTO cards 
+      (
+        name, 
+        status, 
+        rarity, 
+        version, 
+        type, 
+        price, 
+        fetch_date
+      ) 
+    VALUES 
+      (%s, %s, %s, %s, %s, %s, %s)
+    ON DUPLICATE KEY UPDATE price=VALUES(price)
     '''
 
-    cards = [card + [fetch_date] for card in cards]
+    cards = [card.to_sql_object() + [fetch_date] for card in cards
+      if card.to_sql_object() is not None and card.name != 'ウールー']
 
     with conn.cursor() as cursor:
       cursor.executemany(sql, cards)
