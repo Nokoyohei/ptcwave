@@ -1,10 +1,14 @@
 import mysql.connector
 from card import Card
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 conn = mysql.connector.connect(
   user='root',
   host='localhost',
+  password=os.getenv('MYSQL_PASSWORD'),
   database='rush_price'
 )
 

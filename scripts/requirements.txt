@@ -1,2 +1,3 @@
 requests-html
 mysql-connector-python
+python-dotenv
