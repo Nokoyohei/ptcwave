@@ -11,6 +11,6 @@ class Card:
     return f'name: {self.name}, status: {self.status}, rarity: {self.rarity}, version: {self.version}, type: {self.type}, price: {self.price}'
 
   def to_sql_object(self):
-    if self.status == '' or self.status == '仕様':
+    if self.price == '' or self.status == '仕様':
       return None
     return [self.name, self.status, self.rarity, self.version, self.type, self.price]
