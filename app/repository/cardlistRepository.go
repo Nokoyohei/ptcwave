@@ -27,3 +27,16 @@ func (cr *CardlistRepository) FindAll() (*[]entity.Card, error) {
 
 	return &cards, nil
 }
+
+func (cr *CardlistRepository) FindByFetchDate(fetch_date string) (*[]entity.Card, error) {
+	ctx := context.Background()
+	cards := []entity.Card{}
+
+	err := cr.db.SelectContext(ctx, &cards,
+		"SELECT name, version, rarity, type, price, status, fetch_date  FROM cards WHERE fetch_date = ?", fetch_date)
+	if err != nil {
+		return nil, err
+	}
+
+	return &cards, nil
+}

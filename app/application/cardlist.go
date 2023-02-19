@@ -8,8 +8,13 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"github.com/Nokoyohei/ptcwave/v1/database"
+	"github.com/Nokoyohei/ptcwave/v1/entity"
 	"github.com/Nokoyohei/ptcwave/v1/repository"
 )
+
+type CardRequest struct {
+	FetchDate string `query:"fetch_date"`
+}
 
 type CardResponse struct {
 	Name      string    `json:"name"`
@@ -27,8 +32,19 @@ type CardsResponse struct {
 
 func Cardlist(c echo.Context) error {
 	repository, err := repository.NewCardlistRepository(database.DB)
+	var req CardRequest
+	if err := c.Bind(&req); err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
 
-	cards, err := repository.FindAll()
+	var cards *[]entity.Card
+	if req.FetchDate == "" {
+		cards, err = repository.FindAll()
+	} else {
+		cards, err = repository.FindByFetchDate(req.FetchDate)
+	}
+
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
