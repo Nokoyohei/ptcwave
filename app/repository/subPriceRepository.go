@@ -15,7 +15,7 @@ func NewSubPriceRepository(db *sqlx.DB) (*SubPriceRepository, error) {
 	return &SubPriceRepository{db: db}, nil
 }
 
-func (cr *SubPriceRepository) FindSubPrice(prev_fetch_date string, now_fetch_date string) (*[]entity.SubPrice, error) {
+func (cr *SubPriceRepository) FindSubPrice(base_fetch_date string, at_fetch_date string) (*[]entity.SubPrice, error) {
 	ctx := context.Background()
 	cards := []entity.SubPrice{}
 
@@ -41,7 +41,7 @@ func (cr *SubPriceRepository) FindSubPrice(prev_fetch_date string, now_fetch_dat
 			n.fetch_date as now_fetch_date, 
 			p.fetch_date as prev_fetch_date 
 		FROM n JOIN p USING(name, version, rarity, status)
-		WHERE p.price - n.price != 0`, prev_fetch_date, now_fetch_date)
+		WHERE p.price - n.price != 0`, at_fetch_date, base_fetch_date)
 	if err != nil {
 		return nil, err
 	}
