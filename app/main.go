@@ -12,6 +12,7 @@ func main() {
 	e := echo.New()
 
 	e.GET("/", application.Cardlist)
+	e.GET("/subprice", application.SubPrice)
 
 	database.Connect()
 	defer database.DB.Close()
