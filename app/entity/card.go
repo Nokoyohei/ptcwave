@@ -1,30 +1,33 @@
 package entity
 
-import "fmt"
+import "time"
 
 type Card struct {
-	name string `db:"name" json:"name"`
-	version string `db:"version" json:"version"`
-	rarity string `db:"rarity" json:"rarity"`
-	_type string `db:"type" json:"type"`
-	price int `db:"price" json:"price"`
-	status string `db:"status" json:"status"`
+	Name      string    `db:"name" json:"name"`
+	Version   string    `db:"version" json:"version"`
+	Rarity    string    `db:"rarity" json:"rarity"`
+	Type      string    `db:"type" json:"type"`
+	Price     int       `db:"price" json:"price"`
+	Status    string    `db:"status" json:"status"`
+	FetchDate time.Time `db:"fetch_date"`
 }
 
 func NewCard(
-	name string, 
+	name string,
 	version string,
 	rarity string,
 	_type string,
 	price int,
 	status string,
-) Card {
-	return Card{
-		name: name,
-		version: version,
-		rarity: rarity,
-		_type: _type,
-		price: price,
-		status: status,
+	fetch_date time.Time,
+) *Card {
+	return &Card{
+		Name:      name,
+		Version:   version,
+		Rarity:    rarity,
+		Type:      _type,
+		Price:     price,
+		Status:    status,
+		FetchDate: fetch_date,
 	}
 }
