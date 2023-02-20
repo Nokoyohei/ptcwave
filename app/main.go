@@ -6,11 +6,13 @@ import (
 	"github.com/Nokoyohei/ptcwave/v1/application"
 	"github.com/Nokoyohei/ptcwave/v1/database"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	e := echo.New()
 
+	e.Use(middleware.CORS())
 	e.GET("/", application.Cardlist)
 	e.GET("/subprice", application.SubPrice)
 

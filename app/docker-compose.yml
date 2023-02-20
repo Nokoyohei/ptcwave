@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      app_net: 
+        ipv4_address: 172.19.96.2
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
+
+networks:
+  app_net:
+    driver: bridge
+    name: app_net
+    ipam:
+      config:
+        - subnet: 172.19.96.0/24
