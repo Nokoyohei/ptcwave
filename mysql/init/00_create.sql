@@ -12,5 +12,3 @@ CREATE TABLE IF NOT EXISTS cards(
   created_at datetime NOT NULL DEFAULT current_timestamp,
   PRIMARY KEY(name, version, rarity, status, fetch_date)
 );
-
-DESC cards;

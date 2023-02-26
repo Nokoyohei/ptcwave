@@ -20,7 +20,7 @@ def write_csv(data, fetch_date):
 
 def write_database_from_csv(date):
   cards = []
-  with open(f'{fetch_data_dir_path}/{date}.csv') as f:
+  with open(f'{fetch_data_dir_path}/{date}.csv', encoding='utf-8') as f:
     reader = csv.reader(f)
     for row in reader:
       card = Card(
