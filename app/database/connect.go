@@ -22,7 +22,7 @@ func getEnv(key string, defaultValue string) string {
 func Connect() error {
 	config := mysql.NewConfig()
 	config.Net = "tcp"
-	config.Addr = getEnv("MYSQL_HOST", "host.docker.internal") + ":" + getEnv("MYSQL_PORT", "3306")
+	config.Addr = getEnv("MYSQL_HOST", "mysql") + ":" + getEnv("MYSQL_PORT", "3306")
 	config.User = getEnv("MYSQL_USER", "root")
 	config.Passwd = getEnv("MYSQL_PASSWORD", "")
 	config.DBName = getEnv("MYSQL_DATABASE", "rush_price")

@@ -23,5 +23,5 @@ func main() {
 		fmt.Printf("db connection error \n")
 	}
 
-	e.Logger.Fatal(e.Start(":80"))
+	e.Logger.Fatal(e.Start(":8080"))
 }
