@@ -1,2 +1,3 @@
 APP_BASE=$HOME/ptcwave/scripts
-cd $APP_BASE;python3 entrypoint.py
+SCRIPT_NAME=entrypoint.py
+cd $APP_BASE/rush&&python3 $SCRIPT_NAME;cd $APP_BASE/hareruya&&python3 $SCRIPT_NAME
