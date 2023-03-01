@@ -1,8 +1,12 @@
 from requests_html import HTMLSession
 session = HTMLSession()
+headers = {
+  "Cache-Control": "no-cache",
+  "Pragma": "no-cache"
+}
 
 def parse_spreadsheet(url):
-  resp = session.get(url)
+  resp = session.get(url, headers=headers)
 
   csv = []
   cnt = 0
