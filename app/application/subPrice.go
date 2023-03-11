@@ -3,7 +3,6 @@ package application
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/labstack/echo/v4"
 
@@ -18,16 +17,16 @@ type SubPriceRequest struct {
 }
 
 type SubPriceResponse struct {
-	Name          string    `json:"name"`
-	SubPrice      int       `json:"sub"`
-	Version       string    `json:"version"`
-	Rarity        string    `json:"rarity"`
-	Type          string    `json:"type"`
-	PrevPrice     int       `json:"base_price"`
-	NowPrice      int       `json:"at_price"`
-	Status        string    `json:"status"`
-	PrevFetchDate time.Time `json:"base_fetch_date"`
-	NowFetchDate  time.Time `json:"at_fetch_date"`
+	Name          string `json:"name"`
+	SubPrice      int    `json:"sub"`
+	Version       string `json:"version"`
+	Rarity        string `json:"rarity"`
+	Type          string `json:"type"`
+	PrevPrice     int    `json:"base_price"`
+	NowPrice      int    `json:"at_price"`
+	Status        string `json:"status"`
+	PrevFetchDate string `json:"base_fetch_date"`
+	NowFetchDate  string `json:"at_fetch_date"`
 }
 
 type SubPricesResponse struct {
@@ -60,8 +59,8 @@ func SubPrice(c echo.Context) error {
 			v.PrevPrice,
 			v.NowPrice,
 			v.Status,
-			v.PrevFetchDate,
-			v.NowFetchDate,
+			req.Base,
+			req.At,
 		})
 	}
 

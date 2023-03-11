@@ -31,7 +31,7 @@ func (cr *SubPriceRepository) FindSubPrice(base_fetch_date string, at_fetch_date
 			SELECT * 
 			FROM %s
 			WHERE fetch_date=?
-		)
+		), sub AS(
 		SELECT 
 			name, 
 			version, 
@@ -39,12 +39,12 @@ func (cr *SubPriceRepository) FindSubPrice(base_fetch_date string, at_fetch_date
 			n.type, 
 			status, 
 			n.price as now_price, 
-			p.price as prev_price, 
-			n.price - p.price as sub, 
-			n.fetch_date as now_fetch_date, 
-			p.fetch_date as prev_fetch_date 
-		FROM n JOIN p USING(name, version, rarity, status)
-		WHERE p.price - n.price != 0`, table_name, table_name), at_fetch_date, base_fetch_date)
+			CASE WHEN p.price IS NULL THEN 0 ELSE p.price END as prev_price,
+			CASE WHEN p.price IS NULL THEN n.price ELSE n.price - p.price END as sub
+		FROM n LEFT JOIN p USING(name, version, rarity, status)
+		)
+		SELECT * FROM sub
+		WHERE sub != 0`, table_name, table_name), at_fetch_date, base_fetch_date)
 	if err != nil {
 		return nil, err
 	}
