@@ -8,13 +8,18 @@ services:
       dockerfile: Dockerfile
     tty: true
     ports:
-      - 80:80
+      - 443:443
+      - 80:8080
     env_file:
       - ./mysql/.env
+      - ./app/.env
     depends_on:
       - mysql
     volumes:
-      - ./app:/src/app
+      - type: bind
+        source: ./app
+        target: /src/app
+      - ./app/certs:/var/www/certs
     networks:
       - go_mysql_network
     restart: always

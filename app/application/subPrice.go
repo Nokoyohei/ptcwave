@@ -43,7 +43,7 @@ func SubPrice(c echo.Context) error {
 	}
 
 	var cards *[]entity.SubPrice
-	cards, err = repository.FindSubPrice(req.Base, req.At)
+	cards, err = repository.FindSubPrice(req.Base, req.At, "rush")
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
